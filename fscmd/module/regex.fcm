@@ -1,0 +1,130 @@
+"""
+ (C) Copyright 2019-2020 Faran, All Rights Reserved.
+ 
+ This is Faran's real module, for builtin modules
+ 
+ Regular Expression created for string, text
+  manipulation or paragraph manipulation
+ 
+ Not updated much, because I'm busy at =>
+  fixing bugs and making a new method 
+  
+"""
+
+pyvoid findall
+try:
+ DataGlobal['ret'] = re.findall(_commasplit[0], _arg.split(',', 1)[1].strip())
+except re.error:
+ exception('Bad escape (end pattern) for "'+_commasplit[0]+'"')
+end
+
+pyvoid lowercase
+try:
+ DataGlobal['ret'] = _arg.lower()
+except:
+ pass
+end
+
+pyvoid uppercase
+try:
+ DataGlobal['ret'] = _arg.upper()
+except:
+ pass
+end
+
+pyvoid makeleft
+try:
+ global number, string
+ number = int(_commasplit[0])
+ string = _arg.split(',', 1)[1]
+ DataGlobal['ret'] = ''.join([string[(a-number)%len(string)] for a in range(len(string))])
+except ValueError:
+ exception("'"+str(number)+"' is not based integer")
+except IndexError:
+ exception("'strmakeleft' need two argument, 'position-left' and 'string'")
+end
+
+pyvoid translate
+try:
+ _new = ''
+ _str = ''.join([a.strip() for a in _arg.split(',', 1)[1]])
+ _ord = int(_commasplit[0])
+ for yn in _str:
+  _new += chr(ord(yn)+_ord)
+ DataGlobal['ret'] = _new
+except:
+ exception("'"+_commasplit[0]+"' is not based integer")
+end
+
+pyvoid reversed
+try:
+ DataGlobal['ret'] = _arg[::-1]
+except:
+ pass
+end
+
+pyvoid replace
+try:
+ DataGlobal['ret'] = _arg.split(",", 2)[2].replace(_commasplit[0], _commasplit[1])
+except IndexError:
+ exception('"replacestr" need three argument, "to-replace", "replaced", and "string"')
+end
+
+pyvoid split
+try:
+ DataGlobal['ret'] = re.split(_commasplit[0], _arg.split(',', 1)[1])
+except IndexError:
+ DataGlobal['ret'] = _arg.split(',')
+except ValueError:
+ DataGlobal['ret'] = _arg.split(' ')
+end
+
+pyvoid strip
+try:
+ DataGlobal['ret'] = _arg.split(',', 1)[1].strip(_commasplit[0])
+except:
+ exception('"stripstr" need two argument, "striped" and "string"')
+end
+
+pyvoid addperchar
+try:
+ DataGlobal['ret'] = _arg.split(',', 1)[1].join(_commasplit[0])+_arg.split(',', 1)[1]
+except:
+ pass
+end
+
+pyvoid getcharposition
+try:
+ DataGlobal['ret'] = [a for a in range(len(_arg.split(',', 1)[1])) if _arg.split(',', 1)[1][a] in _commasplit[0]]
+except Exception as e:
+ print(e)
+end
+
+pyvoid join
+try:
+ DataGlobal['ret'] = _commasplit[0].join(_arg.split(',', 1)[1])
+except IndexError:
+ exception('"joinstr" need two argument, "to-join" and "string"')
+end
+
+// new defining a command
+*new
+- trans, translate
+- getcharacterposition, getcharposition
+- getcharpos, getcharposition
+
+// describing command
+*desc
+- findall, find character of string with argument: findall <char>, <string>
+- makeleft, push -x or x of index string, example: makeleftstr 1, Faran -> nFara
+- translate, translate a string with ord() value, Example strtrans 1, ab -> bc
+- reverse, reverse a string
+- split, split an argument where first argument is a char to be split and second argument is a string, example: splitstr a, Ha Ha
+- strip, stripping a space (one argument) or a char (two argument), example: stripstr h, Hello, World!
+- replace, replace a character from a string where first argument is char and second argument is replaced char and the third argument is string
+- addperchar, add character to each +1 index of string
+- lowercase, make a string lower
+- uppercase, make a string upper
+- join, joining str1 to str2, same as straddperchar but remove the last character 
+- addperchar, add character every character position + 1 with argument: addpercharstr <string>, <toAdd>
+- getcharposition, get character position with argument: getCharPosition <character>, <string>

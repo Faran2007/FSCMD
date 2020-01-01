@@ -1,0 +1,205 @@
+"""
+ (C) Copyright 2019-2020 Muhammad Faran Aiki, All Rights Reserved.
+ 
+ Arithmetic module is basically for 
+  :: Math stuff unimported
+  :: Infinite and NaN
+  :: Operator for arithmetic
+ 
+ Arithmetic module especially to 
+  define operator such as '+', '+=' .etc
+  
+ This module has `inf`, or `infinite` number
+  so you can use it wisely
+"""
+
+pyvoid inf
+DataGlobal['ret'] = float('inf')
+end
+
+pyvoid nan
+DataGlobal['ret'] = float('nan')
+end
+
+pyvoid plusOperator 
+try: 
+ DataGlobal['ret'] = _parse_to_reading(_commasplit[0]) + _parse_to_reading(_commasplit[1])
+except TypeError:
+ exception('Type (+) is not supported for both command')
+except IndexError:
+ exception('"plusOperator" need two argument')
+end
+
+pyvoid minusOperator 
+try: 
+ DataGlobal['ret'] = _parse_to_reading(_commasplit[0]) - _parse_to_reading(_commasplit[1])
+except TypeError:
+ exception('Type (-) is not supported for both command')
+except IndexError:
+ exception('"minusOperator" need two argument')
+end
+
+pyvoid timesOperator 
+try: 
+ DataGlobal['ret'] = _parse_to_reading(_commasplit[0]) * _parse_to_reading(_commasplit[1])
+except TypeError:
+ exception('Type (*) is not supported for both command')
+except IndexError:
+ exception('"timesOperator" need two argument')
+end
+
+pyvoid divideOperator 
+try: 
+ DataGlobal['ret'] = _parse_to_reading(_commasplit[0]) / _parse_to_reading(_commasplit[1])
+except TypeError:
+ exception('Type (/) is not supported for both command')
+except IndexError:
+ exception('"divideOperator" need two argument')
+end
+
+pyvoid floorOperator 
+try: 
+ DataGlobal['ret'] = _parse_to_reading(_commasplit[0]) // _parse_to_reading(_commasplit[1])
+except TypeError:
+ exception('Type (//) is not supported for both command')
+except IndexError:
+ exception('"divideOperator" need two argument')
+end
+
+pyvoid moduloOperator 
+try: 
+ DataGlobal['ret'] = _parse_to_reading(_commasplit[0]) % _parse_to_reading(_commasplit[1]) 
+except TypeError:
+ exception('Type (%) is not supported for both command')
+except IndexError:
+ exception('"moduloOperator" need two argument')
+end
+
+pyvoid squareOperator
+try: 
+ DataGlobal['ret'] = _parse_to_reading(_commasplit[0]) ** _parse_to_reading(_commasplit[1]) 
+except TypeError:
+ exception('Type (**) is not supported for both command')
+except IndexError:
+ exception('"squareOperator" need two argument')
+end
+
+pyvoid rootOperator
+try: 
+ DataGlobal['ret'] = _parse_to_reading(_arg) ** (1/2)
+except TypeError:
+ exception('"rootOperator" only support integer or float')
+except IndexError:
+ exception('"squareOperator" need two argument')
+end
+
+// data-operator with python defining
+pyvoid add
+try:
+ _parse_to_reading(_arg.split(',', 1)[1])
+ if type(DataGlobal[_commasplit[0]]) == list:
+  DataGlobal[_commasplit[0]].extend(DataGlobal['ret'])
+ elif type(DataGlobal[_commasplit[0]]) == set:
+  DataGlobal[_commasplit[0]] |= DataGlobal['ret']
+ elif type(DataGlobal[_commasplit[0]]) == dict:
+  DataGlobal[_commasplit[0]] = {**DataGlobal[_commasplit[0]], **DataGlobal['ret']}
+ else:
+  DataGlobal[_commasplit[0]] += DataGlobal['ret']
+ DataGlobal['ret'] = DataGlobal[_commasplit[0]]
+except IndexError:
+ exception('"add" need two argument, "data" and "command"')
+except KeyError:
+ exception('Data is not exist "'+_commasplit[0]+'"')
+except (ValueError, TypeError):
+ exception('Type "'+type(DataGlobal[_commasplit[0]]).__name__+'" can\'t be added by type "'+type(DataGlobal['ret']).__name__+'"')
+end
+
+pyvoid subtract
+try:
+ _parse_to_reading(_arg.split(',', 1)[1])
+ if type(DataGlobal[_commasplit[0]]) == list:
+  try:
+   DataGlobal[_commasplit[0]].remove(DataGlobal['ret'])
+  except ValueError:
+   exception('"'+str(DataGlobal['ret'])+'" is not exist in the list')
+ elif type(DataGlobal[_commasplit[0]]) == set:
+  try:
+   DataGlobal[_commasplit[0]].remove(DataGlobal['ret'])
+  except ValueError:
+   exception('"'+str(DataGlobal['ret'])+'" is not exist in the unite')
+ elif type(DataGlobal[_commasplit[0]]) == dict:
+  try:
+   del DataGlobal[_commasplit[0]][DataGlobal['ret']]
+  except KeyError:
+   exception('"'+str(DataGlobal['ret'])+'" is not exist in the dictionary')
+ else:
+  DataGlobal[_commasplit[0]] -= DataGlobal['ret']
+ DataGlobal['ret'] = DataGlobal[_commasplit[0]]
+except IndexError:
+ exception('"subtract" need two argument, "data" and "command"')
+except KeyError:
+ exception('Data is not exist "'+_commasplit[0]+'"')
+except (ValueError, TypeError):
+ exception('Type "'+type(DataGlobal[_commasplit[0]]).__name__+'" can\'t be subtracted by type "'+type(DataGlobal['ret']).__name__+'"')
+end
+
+pyvoid mult
+try:
+ _parse_to_reading(_arg.split(',', 1)[1])
+ DataGlobal[_commasplit[0]] *= DataGlobal['ret']
+ DataGlobal['ret'] = DataGlobal[_commasplit[0]]
+except IndexError:
+ exception('"mult" need two argument, "data" and "command"')
+except KeyError:
+ exception('Data is not exist "'+_commasplit[0]+'"')
+except (ValueError, TypeError):
+ exception('Type "'+type(DataGlobal[_commasplit[0]]).__name__+'" can\'t be multiplied by type "'+type(DataGlobal['ret']).__name__+'"')
+end
+
+pyvoid divide
+try:
+ _parse_to_reading(_arg.split(',', 1)[1])
+ if type(DataGlobal[_commasplit[0]]) == list:
+  DataGlobal[_commasplit[0]] = DataGlobal[_commasplit[0]][:(len(DataGlobal[_commasplit[0]])//DataGlobal['ret'])]
+ else:
+  DataGlobal[_commasplit[0]] /= DataGlobal['ret']
+ DataGlobal['ret'] = DataGlobal[_commasplit[0]]
+except IndexError:
+ exception('"mult" need two argument, "data" and "command"')
+except KeyError:
+ exception('Data is not exist "'+_commasplit[0]+'"')
+except (ValueError, TypeError):
+ exception('Type "'+type(DataGlobal[_commasplit[0]]).__name__+'" can\'t be divided by type "'+type(DataGlobal['ret']).__name__+'"')
+end
+
+pyvoid modulo
+try:
+ _parse_to_reading(_arg.split(',', 1)[1])
+ DataGlobal[_commasplit[0]] %= DataGlobal['ret']
+ DataGlobal['ret'] = DataGlobal[_commasplit[0]]
+except IndexError:
+ exception('"modulo" need two argument, "data" and "command"')
+except KeyError:
+ exception('Data is not exist "'+_commasplit[0]+'"')
+except (ValueError, TypeError):
+ exception('Type "'+type(DataGlobal[_commasplit[0]]).__name__+'" can\'t be modulo by type "'+type(DataGlobal['ret']).__name__+'"')
+end
+
+// set function to command
+setCommandAsFunction inf, nan
+
+// describe built command in this file
+* desc
+- inf, return infinite
+- nan, return nan
+- add, add given value to the given data with argument, "data" and "value"
+- subtract, subtract given value to the given data with argument, "data" and "value"
+- mult, multiply given value to the given data with argument, "data" and "value"
+- divide, divide given value to the given data with argument, "data" and "value"
+- modulo, operate modulus given value to the given data with argument, "data" and "value"
+- plusOperator, operator plus with argument, "command1" and "command2"
+- minusOperator, operator minus with argument, "command1" and "command2"
+- timesOperator, operator times with argument, "command1" and "command2"
+- divideOperator, operator divide with argument, "command1" and "command2"
+- moduloOperator, operator modulo with argument, "command1" and "command2"
+- floorOperator, operator floor (divide but as integer) with argument, "command1" and "command2"

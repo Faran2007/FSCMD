@@ -1,0 +1,19 @@
+(C) Copyright 2019-2020 Faran, All Rights Reserved
+
+Verified modules (load function, import function .etc) is in this module and can be
+ editable because of Open Source Project
+
+This is MY module and all of this IS MY SCRIPT (OR some your script but the built-in/not package is mine)
+
+Startup Module:
+	newkey.fcm
+	statement.fcm
+	my.fcm
+	operator.fcm
+	setting.fcm
+	arithmetic.fcm
+
+
+Do you believe me? that this programming language is almost 99% of it's has a python script?
+ So why there is '.fcm' module? Well, it's actually FSCMD File, but the function/command of it's local is created using
+  Python! (pyvoid, pydef .etc)

@@ -1,0 +1,140 @@
+"""
+ (C) Copyright 2019-2020 Faran, All Rights Reserved
+ 
+ Created by the owner of FSCMD (Faran) [Built-in]
+ 
+ `random` module to generate random 
+  Integer, Character or String
+  
+ Using `random` module in python
+  (in development)
+  
+ You can get random number, random character 
+  random word, or even a random given
+"""
+
+pyvoid Random_Word_Upper
+try:
+ if _arg.strip() == '':
+  _arg = str(random.randint(0, 10))
+ DataGlobal['ret'] = ''.join([chr(ord('A') + random.randint(0, 25)) for i in range(int(_arg.strip()))])
+except:
+ pass
+end
+
+pyvoid Random_Word_Lower
+try:
+ if _arg.strip() == '':
+  _arg = str(random.randint(0, 10))
+ DataGlobal['ret'] = ''.join([chr(ord('a') + random.randint(0, 25)) for i in range(int(_arg.strip()))])
+except Exception as e:
+ print(e)
+end
+
+pyvoid Random_Word
+try:
+ if _arg.strip() == '':
+  _arg = str(random.randint(0, 10))
+ DataGlobal['ret'] = ''.join([chr(ord('a') + random.randint(0, 25)) if random.randint(0, 1) else chr(ord('A') + random.randint(0, 25)) for i in range(int(_arg.strip()))])
+except:
+ pass
+end
+
+pyvoid Random_From
+try:
+ DataGlobal['ret'] = _commasplit[random.randint(0, len(_commasplit)-1)]
+except:
+ pass
+end
+
+pyvoid Random_From_String
+try:
+ DataGlobal['ret'] = _arg[random.randint(0, len(_arg)-1)]
+except:
+ pass
+end
+
+pyvoid Random_Integer 
+try:
+ if len(_commasplit) == 1:
+  start = 0
+  stop  = int(_arg.replace(' ', ''))
+ else:
+  start = int(_commasplit[0].replace(' ', ''))
+  stop  = int(_arg.split(',', 1)[1].replace(' ', ''))
+ DataGlobal['ret'] = random.randint(start, stop)
+except TypeError:
+ exception("Given argument must be an Integer")
+except ValueError as v:
+ try:
+  DataGlobal['ret'] = random.randint(stop, start)
+ except:
+  exception("Given argument must be an Integer")
+except IndexError:
+ DataGlobal['ret'] = random.random()
+end
+
+pyvoid Random_Float
+try:
+ DataGlobal['ret'] = random.random() * float(_arg.split(',', 1)[1]) % float(_arg.split(',', 1)[1]) + float(_commasplit[0])
+except ValueError:
+ exception('Given argument must be an Integer or a Float')
+except IndexError:
+ DataGlobal['ret'] = random.random()
+end
+
+pyvoid Random_Character
+try:
+ if random.randint(0, 1):
+  DataGlobal['ret'] = chr(ord('A')+random.randint(0, 25))
+ else:
+  DataGlobal['ret'] = chr(ord('a')+random.randint(0, 25))
+except:
+ pass
+end
+
+pyvoid Random_Character_Lower
+try:
+ DataGlobal['ret'] = chr(ord('a')+random.randint(0, 25))
+except:
+ pass
+end
+
+pyvoid Random_Character_Upper
+try:
+ DataGlobal['ret'] = chr(ord('A')+random.randint(0, 25))
+except:
+ pass
+end
+
+// add all command to function
+setCommandAsFunction #[toSeparateList getallcommand ${_filename}]
+
+// new method
+*new
+- random_int, random_integer
+- randint, random_integer
+- randfloat, random_float
+- randchar, random_character
+- randlower, random_character_lower
+- randupper, random_character_upper
+- randfrom, random_from
+- randfromstr, random_from_string
+- randfrom_string, random_from_string
+- randfrom_list, random_from
+- random_from_list, random_from
+- randwordup, random_word_upper
+- randwordlw, random_word_lower
+
+// description
+*desc
+- random_from, get a random from the given list
+- random_string, get a random character from the given string
+- random_integer, get a random number with argument: stop | start, stop | stop, start if stop < start. if only one argument given, start = 0, if no given argument, the result will be a float
+- random_char, get a random character from "A" to "z"
+- random_character_lower, get a random character from "a" to "z"
+- random_character_upper, get a random character from "A" to "Z"
+- random_float, get a random float with argument stop | start, stop | stop, start if stop < start. if no argument given, then return random float between 0 to 1
+- random_word, get a random word with argument, random_word <wordsize>
+- random_word_upper, get a random uppercase word with argument, random_word_upper <wordsize>
+- random_word_lower, get a random lowercase word with argument, random_word_lower <wordsize>

@@ -1,0 +1,220 @@
+"""
+ (C) Copyright 2019-2020 Faran, All Rights Reserved
+ 
+ Included in Newkey.fcm!
+ Built-in Module
+ 
+ This module is messing with boolean stuff
+  or you can say it's "Logic Gate"
+ 
+ This is statement module for
+  if Expression or
+  loop_while Expression
+ 
+ Contains boolean:
+  yes, true, on, live, others... [TrueList]
+  no, false, off, dead, others... [FalseList]
+ 
+ Example:
+  Faran_Apple -> 10
+  Syarif_Apple -> 12
+  
+  Faran_Apple > Syarif_Apple
+  
+  // return False
+"""
+
+// ! -> not
+pyvoid reversebool
+try:
+ _parse_to_reading(_arg.strip())
+ if DataGlobal['ret'] in TrueList:
+  DataGlobal['ret'] = False
+ elif DataGlobal['ret'] in FalseList:
+  DataGlobal['ret'] = True
+ else:
+  DataGlobal['ret'] = DataTypes.null()
+except:
+ DataGlobal['ret'] = DataTypes.null()
+end
+
+// logic gate
+pyvoid xoroperator
+try:
+ DataGlobal['ret'] = _parse_to_reading(_commasplit[0]) ^ _parse_to_reading(_arg.split(',', 1)[1].strip())
+except IndexError:
+ exception('"xoroperator" need two argument, "command1" and "command2"')
+end
+
+pyvoid xnoroperator
+try:
+ DataGlobal['ret'] = not (_parse_to_reading(_commasplit[0]) ^ _parse_to_reading(_arg.split(',', 1)[1].strip()))
+except IndexError:
+ exception('"xnoroperator" need two argument, "command1" and "command2"')
+end
+
+pyvoid andoperator
+try:
+ DataGlobal['ret'] = _parse_to_reading(_commasplit[0]) and _parse_to_reading(_arg.split(',', 1)[1].strip())
+except IndexError:
+ exception('"andoperator" need two argument, "command1" and "command2"')
+end
+
+pyvoid nandoperator
+try:
+ DataGlobal['ret'] = not (_parse_to_reading(_commasplit[0]) and _parse_to_reading(_arg.split(',', 1)[1].strip()))
+except IndexError:
+ exception('"nandoperator" need two argument, "command1" and "command2"')
+end
+
+pyvoid oroperator
+try:
+ DataGlobal['ret'] = _parse_to_reading(_commasplit[0]) or _parse_to_reading(_arg.split(',', 1)[1].strip())
+except IndexError:
+ exception('"oroperator" need two argument, "command1" and "command2"')
+end
+
+pyvoid noroperator
+try:
+ DataGlobal['ret'] = not (_parse_to_reading(_commasplit[0]) or _parse_to_reading(_arg.split(',', 1)[1].strip()))
+except IndexError:
+ exception('"noroperator" need two argument, "command1" and "command2"')
+end
+
+// checkers 
+pyvoid isApproximatelyEqual
+try:
+ DataGlobal['ret'] = float('%.14f' % _parse_to_reading(_commasplit[0])) == float('%.14f' % _parse_to_reading(_arg.split(',', 1)[1]))
+except IndexError:
+ exception('"isapproximatelyequal" need two argument, "command1" and "command2"')
+except TypeError:
+ exception('"isapproximatelyequal" only support integer or float')
+end
+
+pyvoid isnull
+try:
+ DataGlobal['ret'] = type(DataGlobal[_arg]) == null
+except KeyError:
+ exception('Data is not exist "'+_arg+'"')
+end
+
+pyvoid isgreaterequal
+try:
+ DataGlobal['ret'] = _parse_to_reading(_commasplit[0]) >= _parse_to_reading(_arg.split(',', 1)[1])
+except IndexError:
+ exception('"isgreaterequal" need two argument, "command1" and "command2"')
+except TypeError:
+ exception('Comparsion should has the same type')
+end
+
+pyvoid islowerequal
+try:
+ DataGlobal['ret'] = _parse_to_reading(_commasplit[0]) <= _parse_to_reading(_arg.split(',', 1)[1])
+except IndexError:
+ exception('"isgreaterequal" need two argument, "command1" and "command2"')
+except TypeError:
+ exception('Comparsion should has the same type')
+end
+
+pyvoid isequal
+try:
+ if _arg.strip() == "":
+  DataGlobal['ret'] = True
+ else:
+  DataGlobal['ret'] = _parse_to_reading(_commasplit[0]) == _parse_to_reading(_arg.split(',', 1)[1].strip())
+except IndexError:
+ exception('"isnotequal" need two argument, "command1" and "command2"')
+end
+
+pyvoid islower
+try:
+ DataGlobal['ret'] = _parse_to_reading(_commasplit[0]) < _parse_to_reading(_arg.split(',', 1)[1])
+except IndexError:
+ exception('"islower" need two argument, "command1" and "command2"')
+except TypeError:
+ exception('Comparsion should has the same type')
+end
+
+pyvoid isgreater
+try:
+ DataGlobal['ret'] = _parse_to_reading(_commasplit[0]) > _parse_to_reading(_arg.split(',', 1)[1])
+except IndexError:
+ exception('"isgreater" need two argument, "command1" and "command2"')
+except TypeError:
+ exception('Comparsion should has the same type')
+end
+
+pyvoid isin
+try:
+ DataGlobal['ret'] = _parse_to_reading(_commasplit[0]) in _parse_to_reading(_arg.split(',', 1)[1].strip()) 
+except IndexError:
+ exception('"isin" need two argument, "command1" and "command2" or command2 can be list "IsIn a, b, c, d, a // True"')
+except TypeError:
+ try:
+  DataGlobal['ret'] = _parse_to_reading(_commasplit[0]) in str(_parse_to_reading(_arg.split(',', 1)[1].strip()))
+ except:
+  try:
+   DataGlobal['ret'] = str(_parse_to_reading(_commasplit[0])) in _parse_to_reading(_arg.split(',', 1)[1].strip())
+  except:
+   DataGlobal['ret'] = str(_parse_to_reading(_commasplit[0])) in str(_parse_to_reading(_arg.split(',', 1)[1].strip()))
+end
+
+pyvoid isdataexist
+try:
+ DataGlobal[_arg]
+ DataGlobal['ret'] = True
+except:
+ DataGlobal['ret'] = False
+end
+
+pyvoid isnotequal 
+try:
+ if _arg.strip() == "":
+  DataGlobal['ret'] = False
+ else:
+  DataGlobal['ret'] = _parse_to_reading(_commasplit[0]) != _parse_to_reading(_arg.split(',', 1)[1].strip())
+except IndexError:
+ exception('"isnotequal" need two argument, "command1" and "command2"')
+end
+
+// describing
+*desc
+- isapproximatelyequal, return command1 approximately equal to command2 with argument, IsApproximatelyEqual <command1>, <command2>. this command usually used for trigonometry comparison
+- isequal, return command1 == command2 with argument, IsEqual <command1>, <command2>
+- isnotequal, return command1 != command2 with argument, IsNotEqual <command1>, <command2>
+- isgreaterequal, return command1 >= command2 with argument, IsGreaterEqual <command1>, <command2> 
+- islowerequal, return command1 <= command2 with argument, IsLowerEqual <command1>, <command2>
+- islower, return command1 < command2 with argument, IsLower <command1>, <command2>
+- isgreater, return command1 > command2 with argument, IsGreater <command1>, <command2>
+- isin, return command1 in command2 with argument, IsIn <command1>, <command2>
+- isnull, return true if the argument (data) is null type
+- isdataexist, return true if the argument (data) datatype is exist
+- reversebool, return the reverse boolean
+- andoperator, check if both statement is True with argument, andOperator <command1>, <command2>
+- nandoperator, check if both statement is not the same with argument, nandOperator <command1>, <command2>
+- oroperator, check if both statement has `True` condition with argument, orOperator <command1>, <command2> 
+- noroperator, check if both statement is False with argument, norOperator <command1>, <command2>
+- xoroperator, check if both statement is not the same and contain true with argument, xorOperator <command1>, <command2>
+- xnoroperator, check if both statement is the same, xnorOperator <command1>, <command2>
+
+// turn all statement command to function
+setCommandAsFunction #[toSeparateList getAllCommand ${_filename}] 
+
+// same
+* new
+- tidak, reverseBool
+- isexactly, isequal
+- isgreaterorequal, isgreaterequal
+- islowerorequal, islowerequal
+- not, reversebool
+- xandOperator, xnorOperator
+- xnand, xorOperator
+
+// as simplified
+- iseq, isequal
+- isn, isin
+- isneq, isnotequal
+- isgrt, isgreater
+- islwr, islower
+- isgeq, isgreaterequal
+- isleq, islowerequal

@@ -1,0 +1,68 @@
+"""
+ (C) Copyright 2019-2020 Faran, All Rights Reserved
+ 
+ Included in Newkey.fcm!
+ Built-In Module
+ 
+ This is 'my' module and mine,
+  Used to define `my` command
+ 
+ for example, mystr return string:: Equation ->
+  MyName = MyString Faran
+  MyAge  = MyInteger 12
+ Is same as 
+  string MyName, Faran
+  integer MyAge, 12
+ And same as 
+  MyName = "Faran"
+  MyAge = 12
+"""
+
+void mystr
+ string ret,${_arg}
+end
+
+void myint
+ int ret,${_arg}
+end
+
+void mybool
+ bool ret,${_arg}
+end
+
+void mylist
+ list ret,${_arg}
+end
+
+void myunite
+ set ret,${_arg}
+end
+
+void mytuple
+ tuple ret,${_arg}
+end
+
+void mydict
+ dict ret,${_arg}
+end
+
+// new
+* new
+- mystring, mystr
+- myinteger, myint
+- myboolean, mybool
+- myset, myunite
+- mydictionary, mydict
+- myhashtable, mydict
+- myboolean, mybool
+
+// describing
+* desc
+- mystr, return string of given argument
+- myint, return integer of given argument
+- mylist, return listed of given argument
+- myfloat, return floated of given argument
+- myunite, return united of given argument
+- mydict, return dicted of given argument
+- mybool, return boolean of given argument
+- mytuple, return tupled of given argument

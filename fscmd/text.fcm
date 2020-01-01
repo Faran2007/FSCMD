@@ -1,0 +1,30 @@
+// load random
+load random
+
+// set point
+point = 0
+
+// while statement
+while True & not False
+    n1 = random_integer 0, 100
+    n2 = random_integer 0, 100
+    op = random_from +, x, /, //, %
+    print Your point is ${point}
+    // catch if input from myInteger is false
+    catch 
+        a = 0
+    end
+    try
+        a = myInteger input What is ${n1} ${op} ${n2}?
+    end
+    // check if a == n1 ${op} n2
+    if a == n1 ${op} n2
+        print Correct
+        point += 1
+    end
+    // check if a == n1 ${op} n2
+    if not #[a == n1 ${op} n2]
+        print Wrong
+        point -= 1
+    end
+end

@@ -1,0 +1,120 @@
+"""
+ (C) Copyright 2019-2020 Faran, All Rights Reserved
+ 
+ Included in Newkey.fcm!
+ Built-In Module
+ 
+ This module is for
+  defining command for setup operator
+  instances for operator
+ 
+ Operator module for operator (=, ->, != .etc)
+  Is defined in this module
+  
+ Don't change this if you don't know how to 
+  edit operator 
+  
+ Please note and remember that
+  print = Hello, World! 
+ Will NOT execute the operator because print is a command
+ 
+ And this operator is COMMAND type, not string type
+  you can look up at the procedure.txt file for more information
+  
+ Contains::
+  FirstOperator ->
+    Non-Special
+    Special
+  SecondOperator
+  LastOperator
+"""
+
+// Sector operator for first operator
+*addFirstOperator
+- :, label
+- ^, goto
+
+// Sector operator for first escape operator
+*addFirstOperatorEscape
+- !, reverseBool
+
+// Sector operator for first operator escape command
+* addFirstOperatorEscape
+- √, rootOperator
+
+// Sector operator for second operator ORDERED
+*addSecondOperator
+- p=,   pydef
+- :=,   def
+- =,    var
+- ->,   var
+- →,    var
+- or,   orOperator
+- nor,  norOperator
+- xor,  xorOperator
+- xnor, xnorOperator
+- and,  andOperator
+- nand, nandOperator
+- xand, xandOperator
+- xnand,xnandOperator
+- |,    orOperator
+- &,    andOperator
+- ^,    xorOperator
+- ≈,    isApproximatelyEqual
+- ~=,   isApproximatelyEqual
+- ==,   isEqual
+- is,   isEqual
+- in,   isIn
+- ≠,    isNotEqual
+- !=,   isNotEqual
+- !==,  isNotEqual
+- ><,   isNotEqual
+- <>,   isNotEqual
+- >,    isGreater
+- <,    isLower
+- ≥,    isGreaterEqual
+- >=,   isGreaterEqual
+- ≤,    isLowerEqual
+- <=,   isLowerEqual
+- =>,   isGreaterEqual
+- =<,   isLowerEqual
+- +=,   add
+- -=,   subtract
+- *=,   mult
+- /=,   divide
+- %=,   modulo
+- +,    plusOperator
+- -,    minusOperator
+- *,    timesOperator
+- x,    timesOperator
+- /,    divideOperator
+- ÷,    divideOperator
+- //,   floorOperator
+- %,    moduloOperator
+- **,   squareOperator
+- xx,   squareOperator
+
+// Sector operator for last operator
+*addLastOperator
+
+// Sector operator for absolute operator
+*addAbsoluteOperator
+- [, ], mylist
+- {, }, mydict
+- (, ), myset
+- ", ", mystring
+- ', ', mystring
+
+// describe first operator builtin in-file because it's blocked
+*desc
+- firstoperator:;,Operator (First) with command "run"
+- firstoperator:?,Operator (First) with command "help"
+- firstoperator://,Operator (First) with command "pass"
+- firstoperator:*,Operator (First) special declared as duplicator command
+- firstoperator:-,Operator (First) special declared as collector from duplicator command
+- firstoperator:",Operator (First) special declared as comment
+- firstoperator:',Operator (First) special declared as comment
+
+// describe last operator builtin in-file because it's blocked
+- lastoperator:++,Operator (Last) special declared to add +1 to the given data
+- lastoperator:--,Operator (Last) special declared to add -1 to the given data

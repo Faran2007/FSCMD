@@ -1,0 +1,102 @@
+#FSCMD Procedure(s) Tree by Muhammad Faran Aiki at Home in Friday->13/12/2019 :
+
+Type:
+	OOP		<On Working>
+	Procedural	<Of Course>
+	Fancy Style	<Of Course>
+	Modular		<Of Course>
+
+System:
+	FSCMD System 1.0 (Unused): 
+			Raw string. No command or any multi-command, else for (eval) and (exec). This is the most
+			Weakest FSCMD System because it is not supported by operator and assign system because
+			In this System we only use raw string. This is weak because FSCMD no longer identify
+			operator and 
+			Example:
+				print Hello, World!
+				// This is fine
+				a == a
+				// This is fine
+				b < a
+				// False
+	FSCMD System 1.5 (Used Now):
+			Normal. Many multi-command like (scoped) command and (operator). This is what we used now
+			Because this is improved and cool, so you can use (operator) and (scoped) command. But only 
+			all operator case are improved to multi-command and some other don't
+			Example:
+				print Hello, World! 
+				// This is fine
+				a == a          -> "a" == "a"
+				// "a" is not a command | "a" is not a command
+				b < a			-> len b < len a
+				// "b" is not a command | "a" is not a command
+	FSCMD System 2.0 (Unreleased):
+			Like it's father, Python. Every command will have a command, so all command is a multi-command
+			and this is not very interactive because user is limited and the weakness is that FSCMD will not
+			be a friendly programming language because in this System, FSCMD will no longer support
+			_arg, _splitarg and _commasplit due to limited argument
+			Example:
+				print Hello, World!	-> print "Hello, World!"
+				// "Hello, World!" is not a command
+				a == a 			-> "a" == "a"
+				// "a" is not a command | "a" is not a command
+				.etc
+
+Method:
+	Syntax:
+ 		Command:
+			Function ->
+			Built-in:
+				In-File
+				Secondary
+			Module
+			Absolute
+		Scope Command:
+			Built-in:
+				In-File
+			Absolute
+	Operator:
+		First:
+			Built-in:
+				In-File
+				Secondary
+			Module
+			Absolute
+		Second: (Complicated)
+			Built-in:
+				Secondary
+			Module
+			Absolute
+		Last:
+			Built-in:
+				In-File
+				Secondary
+			Module
+			Absolute
+		Absolute:
+			Built-in:
+				In-File
+				Secondary
+			Module
+			Absolute
+		Special:
+			First Escaped 
+			
+			
+Helper:
+	System
+	Procedure
+	Helper
+	Method
+	Proper Grammar
+	Process
+
+#Explanation
+	`In-File` mean the following method is in the "lexer.py" script and defined as python script while `Secondary`
+	mean the following method is in the auto loaded module ("newkey.fcm", "statement.fcm" .etc)
+	`Absolute` mean you can create in the script that you want to build. Usually, `Absolute` is followed by `Module`
+	type which can be loaded using `import` or `load` command
+	`System` is defined in System tag
+	`Absolute` (Operator) is same as `Dual Operator` that startwith $symbol1 and endswith $symbol2 [type "?operator"]
+	`First Escaped` mean that if some command exist in the command line, the operator won't operate, this is inverse of `First`, where `First` always execute whether command exist or not
+#End Explanation

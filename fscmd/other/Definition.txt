@@ -1,0 +1,27 @@
+(C) Copyright 2019-2020 Muhammad Faran Aiki, All Rights Reserved.
+
+Definition for a `thing` in FSCMD
+
+`Method`::
+	Method contains [Syntax, Operator]
+
+`Syntax`::
+	To define such a command or jobs
+
+`Command`::
+	Execute subcoroutine and ignore Second Operator
+
+`Function`::
+	Execute subcoroutine and separate if there's a second operator
+	To add function from a command, use 
+		setCommandAsFunction
+	To remove function from a command, use
+		removeCommandAsFunction
+
+`Operator`::
+	Symbol that operate something
+
+`Fancy Style`::
+	Fancy style mean that programming language has more than one style
+
+You can see more, type `help`

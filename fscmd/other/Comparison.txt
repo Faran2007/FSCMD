@@ -1,0 +1,40 @@
+## COMPARISON ##
+
+- Developer: <Name [Age] [Company/Live]>
+	Muhammad Faran Aiki [12 years old] at [Home]
+
+- Critic to all programming language/some programming language):
+	Programming language should has a free style (fancy style), so you can manipulate the programming language
+	Programming language should has a REPL to debug
+	Programming language should has a Helper 
+	Programming language should be easy to read
+	Programming language should be understood by many people (even kids)
+	Programming language should be easy to operate
+	Programming language should be open system or open source
+
+- Get criticed by
+	None
+	(I Predicted to be criticed because of SLOW, Blindness and many bugs unfinished) # Calm down, this is my first big project, solo developing and this is WAS the first release :D
+
+- Pros:
+	Commander 		(Has many command and function with a new method so you don't need to learn all of them)
+	Manipulator 		(Can manipulate some programming language)
+	Free-Style		(Can do anything much with new method)
+	REPL			(Free debugger, IDE and powerful console)
+	Connector		(Can connect to some programming language)
+	Open Source		(Editable by all people)
+	Operable		(Easy to operate)
+	Easy to Understand 	(at editing the programming language with FSCMD)
+	Unlimited 		(If you say FSCMD is limited because of commas, well you're wrong, because you can even create a command/function without using _commasplit, but for operator, <a> <operator> <b> is the same as <operator_command> <a>, <b>)
+
+- Cons:
+	Slower			(More Expert to fix)
+	Bugs			(Some bugs unfinished because of `Hard to Understand`)
+	Hard to Understand 	(at editing the programming language with Python)
+	Blind Separator		(FSCMD is blind at separator. For example, list in dictionary is hard in one single line but can in more than one line. Same for list to, set in list is hard in one single line, but in more than one line it's possible. You can counter this [see other\counter.txt])
+	Blind Operator		(FSCMD is blind at operator [see other\counter.txt])
+
+- Neutral:
+	Inconsistency		(Inconsistency of method and raised exception, for example NumberOnly has (what I know) two exception form, one like -> "'command' only support integer (or/and) float" and "'num' is not a based integer or float" <:: My brain is the inconsistency but still, I love inconsistency [not Always tho...]) 
+
+## END COMPARISON ##

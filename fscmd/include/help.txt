@@ -1,0 +1,14 @@
+lexer.py is the heart of the programming language
+you can edit lexer.py, if you wanna create a new lexer, create a file named lexer.py and put here..
+
+all executables, python, bat/bash/.etc, and Fcm file that are internally/externally included is in here 
+
+for lexer.py:
+ Lexer.py is the biggest file size (raw file (.fcm, .py, .etc) but not (.exe))
+
+Examples:
+ cgg.py                  -> Pygame Graphics for Coordinating
+ lexer.py                -> content of heart
+ fcmpy.py                -> fcm to py (basic function)
+ newkey.fcm              -> name a new keywords (basicly)
+ DescriptionCommand.json -> all of basic helper command are here 

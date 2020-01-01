@@ -1,0 +1,102 @@
+'''
+ (C) Copyright 2019-2020 Faran, All Rights Reserved
+ 
+ This module is created by the Owner of FSCMD (Built-in)
+ 
+ OS (Operating-System Module for fcm (Advanced)
+ With OS Module, you can access directory .etc
+ 
+ You can get 
+  platform name, 
+  platform release/version,
+  operating system name
+'''
+
+pyload platform
+
+pyvoid os_name
+DataGlobal['ret'] = os.name
+end
+
+pyvoid platform_name
+try:
+ DataGlobal['ret'] = platform.system()
+except Exception as e:
+ print(e)
+end
+
+pyvoid platform_version
+DataGlobal['ret'] = platform.release()
+end
+
+pyvoid check_file
+try:
+ open(_arg, 'r')
+ DataGlobal['ret'] = True
+except:
+ DataGlobal['ret'] = False
+end
+
+pyvoid check_module
+try:
+ open(loadpath+_arg+'.fcm') 
+ DataGlobal['ret'] = True
+except:
+ DataGlobal['ret'] = False
+end
+
+pyvoid read_file
+try:
+ DataGlobal['ret'] = open(_arg, 'r').read().replace(_escape.newline, '\\'+'n')
+except FileNotFoundError:
+ exception("File is not exist '"+_arg+"'")
+end
+
+pyvoid all_module
+DataGlobal['ret'] = [module.split('.fcm', 1)[0] for module in os.listdir(loadpath) if module.endswith('.fcm')]
+end
+
+pyvoid all_file
+if _arg == "":
+ DataGlobal['ret'] = [file for file in os.listdir() if os.path.isfile(file)]
+else:
+ DataGlobal['ret'] = [file for file in os.listdir() if (os.path.isfile(file) and file.endswith('.'+_arg))]
+end 
+
+pyvoid all_folder
+DataGlobal['ret'] = [folder for folder in os.listdir() if os.path.isdir(folder)]
+end
+
+pyvoid all_subdir
+DataGlobal['ret'] = os.listdir()
+end
+
+pyvoid get_output
+DataGlobal['ret'] = subprocess.getoutput(_arg)
+end
+
+// new command
+*new
+- rf, read_file
+- fid, all_file
+- fod, all_folder
+- sd, all_subdir
+- am, all_module
+- cm, check_module
+- cf, check_file
+- file_exist, check_file
+
+// description
+*desc
+- get_output, get output of the given terminal instruction (same as `run` but this get the output)
+- os_name, get the current operating system name
+- platform_name, get the current platform name
+- platform_version, get the current platform name/release
+- read_file, same as read but return to ret data
+- file_dir, get all file from current directory
+- all_folder, get all folder from current directory
+- all_subdir, get all either file or folder from current directory
+- all_module, get all module from module directory (Library)
+- check_module, check if module is exist
+- check_file, check if file is exist
+- all_file, get all file with given argument as the file extension, if the given is none then get all file

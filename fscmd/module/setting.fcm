@@ -1,0 +1,242 @@
+"""
+ (C) Copyright 2019-2020 Faran, All Rights Reserved
+ 
+ This is module to setting the base of FSCMD Project (in .fcm way with python technique)
+  Except for desc, but for `descremover` yes
+  Except for addCommandAsFunction, but for `removeCommandAsFunction` yes 
+ 
+ Built-in
+ Included in newkey.fcm
+ 
+ This is setting module to
+  1. Command to Add and remove operator
+  2. Command to Add and remove boolean list
+  3. Command to Remove descriptor
+  4. Command to Remove Command to FUNCTION
+  
+ Please do not remove this because this is important file
+  to edit, manipulate and modify FSCMD
+"""
+
+pyvoid addFirstOperator
+global FirstOperator
+try:
+ FirstOperator[_commasplit[0].strip()] = _arg.split(',', 1)[1].strip() 
+ AllHelper['firstoperator:'+_commasplit[0].strip()] = "Operator (First) with command '"+_arg.split(',', 1)[1].strip()+"'"
+except IndexError:
+ exception('"addFirstOperator" need two argument, "operator" and "command (single)"')
+end
+
+pyvoid addFirstOperatorEscape
+global FirstOperator, eFirstOperator
+try:
+ FirstOperator[_commasplit[0].strip()] = _arg.split(',', 1)[1].strip()
+ eFirstOperator |= {_commasplit[0].strip()}
+ AllHelper['efirstoperator:'+_commasplit[0].strip()] = "Operator (First Escape) with command '"+_arg.split(',', 1)[1].strip()+"'"
+except IndexError:
+ exception('"addFirstOperator" need two argument, "operator" and "command (single)"')
+end
+
+pyvoid addSecondOperator
+global SecondOperator
+try:
+ SecOperator[_commasplit[0].strip()] = _arg.split(',', 1)[1].strip()
+ AllHelper['secondoperator:'+_commasplit[0].strip()] = "Operator (Second) with command '"+_arg.split(',', 1)[1].strip()+"'"
+except IndexError:
+ exception('"addSecondOperator" need two argument, "operator" and "command (single)"')
+end
+
+pyvoid addLastOperator
+global LastOperator
+try:
+ LastOperator[_commasplit[0].strip()] = _arg.split(',', 1)[1].strip()
+ AllHelper['lastoperator:'+_commasplit[0].strip()] = "Operator (Last) with command '"+_arg.split(',', 1)[1].strip()+"'"
+except IndexError:
+ exception('"addLastOperator" need two argument, "operator" and "command (single)"')
+end
+
+pyvoid addLastOperatorForce
+global LastOperator, fLastOperator
+try:
+ LastOperator[_commasplit[0].strip()] = _arg.split(',', 1)[1].strip()
+ fLastOperator |= {_commasplit[0].strip()}
+ AllHelper['flastoperator:'+_commasplit[0].strip()] = "Operator (Last Force) with command '"+_arg.split(',', 1)[1].strip()+"'"
+except IndexError:
+ exception('"addLastOperatorForce" need two argument, "operator" and "command (single)"')
+end
+
+pyvoid addLastOperatorEscape
+global LastOperator, eLastOperator
+try:
+ LastOperator[_commasplit[0].strip()] = _arg.split(',', 1)[1].strip()
+ eLastOperator |= {_commasplit[0].strip()}
+ AllHelper['elastoperator:'+_commasplit[0].strip()] = "Operator (Last Escape) with command '"+_arg.split(',', 1)[1].strip()+"'"
+except IndexError:
+ exception('"addLastOperatorEscape" need two argument, "operator" and "command (single)"')
+end
+
+pyvoid addAbsoluteOperator
+global AbsOperator
+try:
+ AbsOperator[(_commasplit[0], _commasplit[1])] = _arg.split(',', 2)[2]
+ AllHelper['absoluteoperator:'+_commasplit[0].strip()+' '+_commasplit[1].strip()] = "Operator (Absolute) with command '"+_arg.split(',', 2)[2].strip()+"'"
+except IndexError:
+ exception('"addAbsoluteOperator" need three argument, "operator [start]", "operator [end]" and "command (single)"')
+end
+
+pyvoid addTrueList
+global TrueList
+try:
+ TrueList += [str(a).strip() for a in _commasplit]
+except:
+ pass
+end
+
+pyvoid addFalseList
+global FalseList
+try:
+ FalseList += [str(a).strip() for a in _commasplit]
+except:
+ pass
+end
+
+pyvoid removeFirstOperator
+global FirstOperator
+try:
+ for _c in _commasplit:
+  del FirstOperator[_c.strip().lower()], AllHelper['firstoperator:'+_c.strip().lower()]
+except KeyError:
+ exception('Some given operator does not exist')
+end
+
+pyvoid removeFirstOperatorEscape
+global FirstOperator, eFirstOperator
+try:
+ for _c in _commasplit:
+  del FirstOperator[_c.strip().lower()], AllHelper['efirstoperator:'+_c.strip().lower()]
+  eFirstOperator.remove(_c.strip().lower())
+except KeyError:
+ exception('Some given operator does not exist')
+end
+
+pyvoid removeSecondOperator
+global SecondOperator
+try:
+ for _c in _commasplit:
+  del SecOperator[_c.strip().lower()], AllHelper['secondoperator:'+_c.strip().lower()]
+except KeyError:
+ exception('Some given operator does not exist')
+end
+
+pyvoid removeLastOperator
+global LastOperator
+try:
+ for _c in _commasplit:
+  del LastOperator[_c.strip().lower()], AllHelper['lastoperator:'+_c.strip().lower()]
+except KeyError:
+ exception('Some given operator does not exist')
+end
+
+pyvoid removeLastOperatorForce
+global LastOperator, fLastOperator
+try:
+ for _c in _commasplit:
+  del LastOperator[_c.strip().lower()], AllHelper['flastoperator:'+_c.strip().lower()]
+  fLastOperator.remove(_c.strip().lower())
+except KeyError:
+ exception('Some given operator does not exist')
+end
+
+pyvoid removeLastOperatorEscape
+global LastOperator, eLastOperator
+try:
+ for _c in _commasplit:
+  del LastOperator[_c.strip().lower()], AllHelper['elastoperator:'+_c.strip().lower()]
+  eLastOperator.remove(_c.strip().lower())
+except KeyError:
+ exception('Some given operator does not exist')
+end
+
+pyvoid removeAbsoluteOperator
+global AbsoluteOperator
+try:
+ for _c in _commasplit:
+  del AbsoluteOperator[tuple(_c.strip().split(' '))], AllHelper['absoluteoperator:'+_c.strip().lower()]
+except KeyError:
+ exception('Some given operator does not exist')
+end
+
+pyvoid removeTrueList
+global TrueList
+try:
+ [TrueList.remove(_c.strip().lower()) for _c in _commasplit]
+except ValueError:
+ exception('Some given argument is not in TrueList')
+end
+
+pyvoid removeFalseList
+global FalseList
+try:
+ [FalseList.remove(_c.strip().lower()) for _c in _commasplit]
+except ValueError:
+ exception('Some given argument is not in FalseList')
+end
+
+pyvoid descRemove
+global AllHelper
+try:
+ for _c in _commasplit:
+  del AllHelper[_c.strip().lower()]
+except KeyError:
+ exception("Some given argument does not have description")
+end
+
+pyvoid removeCommand
+try:
+ [exec("del _Command.c__"+_c+"__") for _c in _commasplit]
+except AttributeError:
+ exception("Some given command is not exist")
+end
+
+pyvoid removeCommandAsFunction
+global asFunction
+try:
+ [asFunction.remove(_c.lower()) for _c in _commasplit]
+except ValueError:
+ exception('Some command is not exist')
+end
+
+// new key to add
+* new
+- removeDesc, descRemove
+- removeDescription, descRemove
+- removeSecOperator, removeSecondOperator
+- removeAbsOperator, removeAbsoluteOperator
+- removeDualOperator, removeAbsoluteOperator
+- addSecOperator, addSecondOperator
+- addAbsOperator, addAbsoluteOperator
+- addDualOperator, addAbsoluteOperator
+
+// descriptor
+*desc
+- addFirstOperator, add a first operator with argument, "operator" and "command (single)"
+- addFirstOperatorEscape, add a first escape operator with argument, "operator" and "command (single)"
+- addSecondOperator, add a second operator with argument, "operator" and "command (single)"
+- addLastOperator, add a last operator with argument, "operator" and "command (single)"
+- addLastOperatorForce, add a last force operator with argument, "operator" and "command (single)"
+- addLastOperatorEscape, add a last escape operator with argument, "operator" and "command (single)"
+- addAbsoluteOperator, add a absolute operator with argument, "operator" and "command (single)"
+- addTrueList, add a string type (True) to the TrueList
+- addFalseList, add a string type (False) to the FalseList
+- removeCommand, remove the given command
+- removeFirstOperator, remove first operator with the given argument
+- removeFirstOperatorEscape, remove first escape operator with the given argument
+- removeSecondOperator, remove second operator with the given argument
+- removeLastOperator, remove last operator with the given argument
+- removeLastOperatorForce, remove last force operator with the given argument
+- removeLastOperatorEscape, remove last escape operator with the given argument
+- removeAbsoluteOperator, remove absolute operator with the given argument
+- removeTrueList, remove a string type (True) from the TrueList
+- removeFalseList, remove a string type (False) from the FalseList
+- removeCommandAsFunction, remove a function from the given command, type "?definition"
+- descRemove, remove descriptor for a command

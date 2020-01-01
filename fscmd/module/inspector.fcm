@@ -1,0 +1,29 @@
+'''
+ (C) Copyright 2019-2020 Faran, All Rights Reserved
+ 
+ This module is for inspecting (kit) for fscmd command
+ This module is created by the Owner of FSCMD (Built-in)
+ 
+ INSPECTOR
+    timeit
+    
+ Use this for your inspecting about, how do I
+  create this programming language, speed test, code .etc 
+'''
+
+// python load timeit
+pyload timeit, cProfile, dis
+
+// create local for timeit
+pyvoid timeit
+DataGlobal['ret'] = timeit.timeit("_parse_to_reading(_arg)", number=1, globals={**globals(), '_arg': _arg}) 
+end
+
+pyvoid pyprofile
+cProfile.runctx("_parse_to_reading(_arg)", globals=globals(), locals=locals())
+end
+
+// description
+*desc
+- timeit, test the average speed of a command
+- pyprofile, python profile to see what makes FSCMD slow or fast

@@ -1,0 +1,387 @@
+'''
+ (C) Copyright 2019-2020 Faran, All Rights Reserved
+ 
+ This module is created by the Owner of FSCMD (Built-in)
+ 
+ Development of normal and math module
+ 
+ Trigonometry, radians, floor
+ Thus, you can use gcd, lcm for free!
+ 
+ Sigma, Capital Pi Notation .etc is defined here, even f(x) to create function!
+ 
+ For example::
+    load math
+    45 == acos sin 45
+        // OR
+    0.5 == sin 30
+    // Hmm... why is this invalid? because acos sin 45 is 45.00000000000001 not 45, [REMEMBER THAT SIN 45 = COS 45? WELL ACTUALLY IT'S WRONG]
+    // So to be precisely, use "~=" operator
+    45 ~= acos sin 45
+    0.5 ~= sin 30
+    // Hmm... of course it's true, check it out!
+    
+ Well, FACTORIAL!!!!
+    load math
+    1! + 2! + 3!
+    // return 9
+    1!! + 2!! + 3!!
+    // return 723, because 1!! = 1 and 2!! = 2 and 3!! = 6! = 720
+    
+ Well, Sigma, CPI?
+    sigma <expression>, <start/stop>, <stop>, <variable>
+    cpi ....
+                       == OR == -> With Symbol
+    Σ <expression>, <start/stop>, <stop>, <variable>
+    Π ....
+    
+'''
+
+// This load math from python library
+pyload math
+
+pyvoid Math_func
+try:
+ _calc = _arg.split(',', 2)[2].strip().replace(_commasplit[1], '${_arg}')
+ DataRestrict['local'] = 'calc '+_calc
+ _parse_to_reading("def "+_commasplit[0]+", %{local}")
+except:
+ pass
+end
+
+pyvoid Cpi
+try:
+ total = 1
+ if len(_commasplit) > 3:
+  _var   = _commasplit[3].replace(' ', '')
+  _start = _commasplit[1].replace(' ', '')
+  _stop  = _commasplit[2].replace(' ', '')
+  _expr  = _commasplit[0].replace(' ', '')
+ elif len(_commasplit) == 3:
+  _var   = 'n'
+  _start = _commasplit[1].replace(' ', '')
+  _stop  = _commasplit[2].replace(' ', '')
+  _expr  = _commasplit[0].replace(' ', '')
+ else:
+  _var   = 'n'
+  _start = 1
+  _stop  = _commasplit[1].replace(' ', '')
+  _expr  = _commasplit[0].replace(' ', '')
+ _start  = _parse_to_reading(_start)
+ _stop   = _parse_to_reading(_stop)
+ for n in range(_start, _stop):
+  exec(_var+' = n')
+  total *= eval(_expr)
+ DataGlobal['ret'] = total
+except NameError:
+ exception('Some variable are not declared, the standard variable is "n"')
+except (ValueError, TypeError):
+ exception('\'cpi\' argument "start" and "stop" is a based integer argument')
+except IndexError:
+ exception("'cpi' is a special command where argument is 'expression' | 'start' or 'stop' | 'stop' | 'var'")
+except ZeroDivisionError:
+ exception("Can't divide by zero")
+except:
+ exception("Can't solve the given equation")
+end
+
+pyvoid Sigma
+try:
+ total = 0
+ if len(_commasplit) > 3:
+  _var   = _commasplit[3].replace(' ', '')
+  _start = _commasplit[1].replace(' ', '')
+  _stop  = _commasplit[2].replace(' ', '')
+  _expr  = _commasplit[0].replace(' ', '')
+ elif len(_commasplit) == 3:
+  _var   = 'n'
+  _start = _commasplit[1].replace(' ', '')
+  _stop  = _commasplit[2].replace(' ', '')
+  _expr  = _commasplit[0].replace(' ', '')
+ else:
+  _var   = 'n'
+  _start = 0
+  _stop  = _commasplit[1].replace(' ', '')
+  _expr  = _commasplit[0].replace(' ', '')
+ _start  = _parse_to_reading(_start)
+ _stop   = _parse_to_reading(_stop)
+ for n in range(_start, _stop):
+  exec(_var+' = n')
+  total += eval(_expr)
+ DataGlobal['ret'] = total
+except NameError:
+ exception('Some variable are not declared, the standard variable is "n"')
+except (ValueError, TypeError):
+ exception('\'sigma\' argument "start" and "stop" is integer argument')
+except IndexError:
+ exception("'sigma' is a special command where argument is 'expression' | 'start' or 'stop' | 'stop' | 'var'")
+except ZeroDivisionError:
+ exception("Can't divide by zero")
+except:
+ exception("Can't solve the given equation")
+end 
+
+pyvoid Floor
+try:
+ DataGlobal['ret'] = math.floor(_parse_to_reading(_arg)) 
+except (ValueError, TypeError):
+ exception("'"+str(DataGlobal['ret'])+"' is not a based integer or float or float")
+end
+
+pyvoid Log
+try:
+ _logexpr1 = _parse_to_reading(_commasplit[0])
+ try:
+  _logexpr2 = _parse_to_reading(_arg.split(',', 1)[1])
+ except:
+  _logexpr2 = 10
+ DataGlobal['ret'] = math.log(_logexpr1, _logexpr2)  
+except (ValueError, TypeError):
+ try:
+  exception("'"+_commasplit[0]+"' or '"+_commasplit[1]+"' is not a based integer or float or float")
+ except:
+  exception("log minimum and maximum need one argument and two argument with argument: log b, a (a log b) where b as base")
+except IndexError:
+ exception("log minimum and maximum need one argument and two argument with argument: log b, a (a log b) where b as base")
+end
+
+pyvoid Percentage
+try:
+ DataGlobal['ret'] = str(_parse_to_reading(_commasplit[0])/_parse_to_reading(_commasplit[1])*100)+'%'
+except (ValueError, TypeError):
+ exception("'"+_commasplit[0]+"' or '"+_commasplit[1]+"' is not a based integer or float or float")
+except IndexError:
+ exception("gcd need two arguments")
+end
+
+pyvoid GCD
+try:
+ DataGlobal['ret'] = math.gcd(_parse_to_reading(_commasplit[0]), _parse_to_reading(_commasplit[1]))
+except (ValueError, TypeError):
+ exception("'gcd' only support integer")
+except IndexError:
+ exception('"gcd" need two arguments')
+end
+
+pyvoid LCM
+try:
+ DataGlobal['ret'] = int(_parse_to_reading(_commasplit[0]) * _parse_to_reading(_commasplit[1]) / math.gcd(_parse_to_reading(_commasplit[0]), _parse_to_reading(_commasplit[1])))
+except (ValueError, TypeError):
+ exception("'lcm' only support integer")
+except IndexError:
+ exception('"lcm" need two arguments')
+end
+
+pyvoid Sinh
+try:
+ DataGlobal['ret'] = math.sinh(_parse_to_reading(_arg))
+except (ValueError, TypeError):
+ exception("'"+str(DataGlobal['ret'])+"' is not a based integer or float")
+end
+
+pyvoid Cosh
+try:
+ DataGlobal['ret'] = math.cosh(_parse_to_reading(_arg))
+except (ValueError, TypeError):
+ exception("'"+str(DataGlobal['ret'])+"' is not a based integer or float")
+end
+
+pyvoid Tanh
+try:
+ DataGlobal['ret'] = math.tanh(_parse_to_reading(_arg))
+except (ValueError, TypeError):
+ exception("'"+str(DataGlobal['ret'])+"' is not a based integer or float")
+end
+
+pyvoid ASin
+try:
+ DataGlobal['ret'] = math.asin(_parse_to_reading(_arg))*180/math.pi
+except (ValueError, TypeError):
+ exception("'"+str(DataGlobal['ret'])+"' is not a based integer or float between -1 and 1")
+end
+
+pyvoid ACos
+try:
+ DataGlobal['ret'] = math.acos(_parse_to_reading(_arg))*180/math.pi
+except (ValueError, TypeError):
+ exception("'"+str(DataGlobal['ret'])+"' is not a based integer or float between -1 and 1")
+end
+
+pyvoid ATan
+try:
+ DataGlobal['ret'] = math.atan(_parse_to_reading(_arg))*180/math.pi
+except (ValueError, TypeError):
+ exception("'"+str(DataGlobal['ret'])+"' is not a based integer or float between -1 and 1")
+end
+
+pyvoid RASin
+try:
+ DataGlobal['ret'] = math.asin(_parse_to_reading(_arg)) 
+except (ValueError, TypeError):
+ exception("'"+str(DataGlobal['ret'])+"' is not a based integer or float between -1 and 1")
+end
+
+pyvoid RACos
+try:
+ DataGlobal['ret'] = math.acos(_parse_to_reading(_arg)) 
+except (ValueError, TypeError):
+ exception("'"+str(DataGlobal['ret'])+"' is not a based integer or float between -1 and 1")
+end
+
+pyvoid RATan
+try:
+ DataGlobal['ret'] = math.atan(_parse_to_reading(_arg)) 
+except (ValueError, TypeError):
+ exception("'"+str(DataGlobal['ret'])+"' is not a based integer or float between -1 and 1")
+end
+
+pyvoid DSin
+try:
+ DataGlobal['ret'] = math.sin(_parse_to_reading(_arg)*math.pi/180) 
+except (ValueError, TypeError):
+ exception("'"+str(DataGlobal['ret'])+"' is not a based integer or float")
+end
+
+pyvoid DCos
+try:
+ DataGlobal['ret'] = math.cos(_parse_to_reading(_arg)*math.pi/180) 
+except (ValueError, TypeError):
+ exception("'"+str(DataGlobal['ret'])+"' is not a based integer or float")
+end
+
+pyvoid DTan
+try:
+ DataGlobal['ret'] = math.tan(_parse_to_reading(_arg)*math.pi/180) 
+except (ValueError, TypeError):
+ exception("'"+str(DataGlobal['ret'])+"' is not a based integer or float")
+end
+
+pyvoid RSin
+try:
+ DataGlobal['ret'] = math.sin(_parse_to_reading(_arg)) 
+except (ValueError, TypeError):
+ exception("'"+str(DataGlobal['ret'])+"' is not a based integer or float")
+end
+
+pyvoid RCos
+try:
+ DataGlobal['ret'] = math.cos(_parse_to_reading(_arg)) 
+except (ValueError, TypeError):
+ exception("'"+str(DataGlobal['ret'])+"' is not a based integer or float")
+end
+
+pyvoid RTan
+try:
+ DataGlobal['ret'] = math.cos(_parse_to_reading(_arg)) 
+except (ValueError, TypeError):
+ exception("'"+str(DataGlobal['ret'])+"' is not a based integer or float")
+end
+
+pyvoid Abs
+try:
+ DataGlobal['ret'] = abs(_parse_to_reading(_arg))
+except (ValueError, TypeError):
+ exception("'"+str(DataGlobal['ret'])+"' is not a based integer or float")
+end
+
+pyvoid Factorial
+try:
+ DataGlobal['ret'] = math.gamma(1+_parse_to_reading(_arg))
+except (ValueError, TypeError):
+ exception("'"+str(DataGlobal['ret'])+"' is not a based integer or float that is greater or equal than 0")
+except OverflowError:
+ if int(DataGlobal['ret']) == DataGlobal['ret']:
+  DataGlobal['ret'] = math.factorial(DataGlobal['ret'])
+ else:
+  exception("'"+str(DataGlobal['ret'])+"' is to big to factorial")
+end
+
+// void type
+void ln
+ return log ${_arg}, ${e}
+end
+
+// add a command as function
+setCommandAsFunction #[toSeparateList getallcommand math]
+
+// new command
+*new
+- absolute, abs
+- logarithm, log
+- lone, ln
+- percent, percentage
+- radian_sine, rsin
+- radian_cosine, rcos
+- radian_tangent, rtan
+- hsin, sinh 
+- hcos, cosh
+- htan, tanh
+- arcsin, asin
+- arccos, acos
+- arctan, atan
+- sine, dsin
+- cosine, dcos
+- tangent, dtan
+- sin, dsin
+- cos, dcos
+- tan, dtan
+- invsin, asin
+- invcos, acos
+- invtan, atan
+- function, math_func
+
+// description
+*desc
+- abs, return absolute of the given argument
+- fraction, return fraction of the given argument
+- factorial, return factorial of the given number
+- cpi, return cpi with argument "expr", "start"=1, "stop", "var"="n", if you want to use sin, cos etc. use "math.sin(x)" ...
+- sigma, return sigma with argument "expr", "start"=0, "stop", "var"="n", if you want to use sin, cos etc. use "math.sin(x)" ...
+- floor, return floor integer with argument: floor integer, to "ret" data
+- log, return a log b with argument: log <number>, <base>
+- ln, return a log of a number based to ${e} (Euler number)
+- percentage, return percentage of argument one to argument two, to "ret" data
+- gcd, return greatest common divisor (gcd) of argument (2 argument) to "ret" data
+- lcm, return least common multiple (lcm) of argument (2 argument) to "ret" data
+- sinh, return sinh of argument
+- cosh, return cosh of argument
+- tanh, return tanh of argument
+- asin, return asin (degree) of argument (reverse of dsin)
+- acos, return acos (degree) of argument (reverse of dcos)
+- atan, return atan (degree) of argument (reverse of dtan)
+- rsin, return sin (radian) of argument 
+- rcos, return cos (radian) of argument 
+- rtan, return tan (radian rsin a / rcos a) 
+- dsin, return sin (degree) of argument 
+- dcos, return cos (degree) of argument 
+- dtan, return tan (degree sin a / cos a) 
+- rasin, return asin (radian) of argument (reverse of rsin)
+- racos, return acos (radian) of argument (reverse of rcos)
+- ratan, return atan (radian) of argument (reverse of rtan)
+- math_func, create a function, for example: math_func f, x, x+12. if you call `f 14`, the return will be 16
+
+// add a first operator
+*addFirstOperator
+- Σ, sigma
+- Π, cpi
+
+// add a last escape operator
+*addLastOperatorEscape
+- !, factorial
+
+// define math constant after function
+*float
+- e, 2.71828182846
+- pi, 3.14159265359
+- π, ${pi}
+- planck, #[662607004 * 10 ** -34]
+- zero, 0
+- one, 1
+- two, 2
+- three, 3
+- four, 4
+- five, 5
+- six, 6
+- seven, 7
+- eight, 8
+- nine, 9

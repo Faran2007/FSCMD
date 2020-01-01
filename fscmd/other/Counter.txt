@@ -1,0 +1,33 @@
+(C) Copyright 2019-2020 Muhammad Faran Aiki, All Rights Reserved.
+
+Counter-Attack !!! :D
+I'm still a child, so there must be a PROBLEM,
+ here is my ideas to avoid that problem
+
+FSCMD is blind at dual operator, so you should try avoid some operator at dual operator while using 
+
+FSCMD is blind at commasplit, so you should try avoid comma, for example this:
+ ret = ['a', 'b']
+ x = [ret]
+ // x = [['a', 'b']]
+
+FSCMD is blind at operator, so you should use '#[]' as the replacement, for example this:
+ x = y = True
+ if #[x == True] and #[y == True]
+  // do something
+ end
+
+FSCMD does not support parenthesis on calculating, so you should use '#[]' or '#()' as the replacement
+ 1 + 2 ** 3
+ // return 9
+ #(1 + 2) ** 3
+ // return 27
+ PLEASE REMEMBER THAT REPLACEMENT CANNOT BE IN ONE PLACE EACH OTHER, FOR EXAMPLE:
+  #(1 + #(2 + 1)) + 3
+  // this will raise an exception, so you should try
+  #(1 + #[2 + 1]) + 3 
+  // print out 7
+
+FSCMD has two definition each for COMMAND and FUNCTION, check "?definition"
+
+INSERT HERE WITH PERMISSION...

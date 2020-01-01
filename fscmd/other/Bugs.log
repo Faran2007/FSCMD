@@ -1,0 +1,27 @@
+## 	BUGS FOUNDED SO YOU CAN SEE 			## 
+## 	NOT ALL BUGS BUT SOME BUGS THAT CAN BE SHOWED 	##
+
+Tier::
+	Easy		-> 1-5		minutes
+	Medium		-> 6-30 	minutes
+	Hard		-> 30-720	minutes
+	Expert		-> 12-96	hours
+	Impossible	-> 1-2		years
+
+Unknown Dates:
+	(Fixed)	[`OPERATOR`]		*HARD*		Operator not working perfectly. Some issues not solved
+
+16/12/2019:
+	(Fixed)		[`SCOPE` ERROR]		*HARD*		Not executing properly
+	(Not Fixed) 	[`SCOPE` FAMILY]	*EXPERT*	Unsupportive two for condition in one scope caused by `scope_data` and `l_scope_data`
+
+19/12/2019:
+	(Fixed)		[CONDITIONAL `SCOPE`]	*MEDIUM*	Conditional scope for `if` command is an error, the given argument will always return True for any command (except Data and True, False)
+	(Fixed)		[CLASH FIRST & LAST]	*EASY*		Clash between two operand type, secondOperator and firstOperator
+
+23/12/2019:
+	(Not Fixed)	[`HOLDER` COMMAS QUOTE]	*MEDIUM*	Unite/Set, List and Dictionary is slow and since it's use command/function, the commas is hard to split up (test this command: ["Hello, World", "Test"]). The problem itself is in the separator
+
+28/12/2019:
+	(Fixed)		[`OPERATOR` ARITHMETIC]	*HARD*		"-" operator will read out from right to left, for example: 1 - 2 - 3 [-4] is equal to 1 - (2 - 3) [2] which is false
+	(Not Fixed)	[`OPERATOR` DUALSECOND]	*HARD*		Blind at dual operator, for example: [1] + [2] will be readed as list 1] + [2 because this command has '[' and ']' etc.

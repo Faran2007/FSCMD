@@ -1,0 +1,400 @@
+"""
+ (C) Copyright 2019-2020 Faran, All Rights Reserved.
+ 
+ Built-In Module, Always Execute before starting the initial program
+ 
+ I hope you didn't remove this file/or change this
+  script to an error script or not a functional script
+ 
+ Using "new", "desc", "pyvoid", "pydef", and "def" to make a
+  new key for builtin in this built-in module
+ newkey.fcm, new method, command and other for fcm/fscmd programming language
+ 
+ This module is based-built-in for 
+  developing and making programmer easier to 
+  connect, scripting and coding in FSCMD
+  
+ This is Body of FSCMD, you can change the body if you learn
+  the structure of the body. But the body isn't same as the heart 
+  
+ This module is always executed every time you open 
+  FSCMD script, console .etc 
+  
+ Current distribute: Faran (Owner). This is a real important module, if you don't know how to
+  change it properly (Delete all command or function), please do not do that
+  
+ This module contains
+  operator, few character and integer manipulation, and others 
+  
+ This module 
+  will load
+   :: my.fcm
+   :: statement.fcm
+   :: operator.fcm
+   :: setting.fcm
+   :: arithmetic.fcm
+   
+ REMEMBER!
+    COMMAND AND FUNCTION ARE NOT THE SAME!
+    IF YOU WANT TO CONVERT COMMAND TO FUNCTION, PLEASE USE 
+     `setCommandAsFunction <...>`
+"""
+
+// load python module, this is important
+pyload itertools
+
+// new data for each executer
+int base-index, 1
+
+// new command start with "py"
+*new
+- pydefine, pydef
+- pyexecute, pyexec
+- pvoid, pyvoid
+- pscope, pyscope
+- pload, pyload
+
+// new non-console-command/system-command
+- redirect_stdout, set_stdout
+- redirect_stdin, set_stdin
+- desc, description
+- define, def
+- getpythondata, access
+
+// new console-command/system-command for computer
+- directory, dir
+- delete, del
+- quit, exit
+- start, run
+- change_directory, cd
+
+// new data-structures
+- integer, int
+- string, str
+- set, unite
+- hashtable, dict
+- dictionary, dict
+- boolean, bool
+
+// pyvoid command
+pyvoid toList
+try:
+ DataGlobal['ret'] = list(_parse_to_reading(_arg))
+except:
+ DataGlobal['ret'] = list(str(_parse_to_reading(_arg)))
+end
+
+pyvoid toSet
+try:
+ DataGlobal['ret'] = set(_parse_to_reading(_arg))
+except:
+ DataGlobal['ret'] = set(str(_parse_to_reading(_arg)))
+end
+
+pyvoid append
+try:
+ DataGlobal[_commasplit[0].strip()].append(_commasplit[1])
+ DataGlobal['ret'] = DataGlobal[_commasplit[0].strip()]
+except KeyError:
+ exception('Data is not exist "'+_commasplit[0]+'"')
+except IndexError:
+ exception('"list_append" need two argument, "data" and "list"')
+end
+
+pyvoid list_remove
+try:
+ DataGlobal[_commasplit[0].strip()].remove(_commasplit[1])
+ DataGlobal['ret'] = DataGlobal[_commasplit[0].strip()]
+except KeyError:
+ exception('Data is not exist "'+_commasplit[0]+'"')
+except ValueError:
+ exception('"'+_commasplit[1]+'" is not in "'+_commasplit[0]+'"')
+except IndexError:
+ exception('"list_remove" need two argument, "data" and "value"')
+end
+
+pyvoid clearfile
+try:
+ open(_arg, 'w', encoding='utf-8').write('')
+except (PermissionError, FileNotFoundError):
+ exception('File is not exist "'+_arg+'"')
+end
+
+pyvoid len
+try:
+ DataGlobal['ret'] = len(_parse_to_reading(_arg))
+except (ValueError, TypeError):
+ DataGlobal['ret'] = len(str(_parse_to_reading(_arg)))
+end
+
+pyvoid get_value
+try:
+ DataGlobal['ret'] = DataGlobal[_commasplit[0]][_arg.split(',', 1)[1].strip()]
+except IndexError:
+ exception('"get_value" need two argument, "data" and "key"')
+except KeyError:
+ try:
+  DataGlobal[_commasplit[0]]
+  exception("Key '"+_arg.split(',', 1)[1].strip()+"' is not exist in '"+_commasplit[0]+"'")
+ except:
+  exception("Data is not exist '"+_commasplit[0]+"'")
+end
+
+pyvoid each
+try:
+ nl = []
+ try:
+  d_b = DataGlobal[_commasplit[0]]
+ except:
+  d_b = None
+ for data in DataGlobal[_commasplit[1]]:
+  DataGlobal[_commasplit[0]] = data
+  _parse_to_reading(_arg.split(',', 2)[2])
+  nl += [DataGlobal['ret']]
+ DataGlobal['ret'] = nl
+ if d_b != None:
+  DataGlobal[_commasplit[0]] = d_b
+ else:
+  del DataGlobal[_commasplit[0]]
+except IndexError:
+ exception('"each" need three argument, "data_iteration", "data", and "command"')
+except KeyError:
+ exception('Data is not exist "'+_commasplit[1]+'"')
+end
+
+pyvoid var
+try:
+ _parse_to_reading(_arg.split(',', 1)[1].strip())
+ DataGlobal[_commasplit[0]] = DataGlobal['ret']
+except IndexError:
+ exception("'var' need two arguments, 'variable' and 'command'")
+end
+
+pyvoid index
+try:
+ try:
+  _toSubstract = int(DataGlobal['base-index'])
+ except:
+  _toSubstract = 1
+ if int(_arg.split(',', 1)[1])-_toSubstract > len(DataGlobal[_commasplit[0]]):
+  exception("Index is too big, maximum '"+str(len(DataGlobal[_commasplit[0]]))+"'")
+ elif -1*(int(_arg.split(',', 1)[1])-_toSubstract) < len(DataGlobal[_commasplit[0]])*-1:
+  exception("Index is too small, maximum '"+str(-1*len(DataGlobal[_commasplit[0]]))+"'")
+ else:
+  DataGlobal['ret'] = DataGlobal[_commasplit[0]][int(_arg.split(',', 1)[1])-_toSubstract]
+except IndexError:
+ exception("Index need two argument, 'data' and 'index'")
+except ValueError:
+ exception("'"+_arg.split(',', 1)[1]+"' is not based integer")
+except KeyError:
+ exception("Data is not exist '"+_commasplit[0]+"'") 
+end
+
+void return
+ var ret, ${_arg}
+end
+
+pyvoid mean
+def get(x):
+ dn = 0
+ for i in x:
+  dn += i
+ return dn/len(x)
+try:
+ DataGlobal['ret'] = get([int(a.strip()) for a in list(_arg.split(','))])
+except:
+ pass
+end
+
+pyvoid sortstr
+try:
+ DataGlobal['ret'] = sorted([a.strip() for a in list(_arg.split(','))])
+except:
+ pass
+end
+
+pyvoid sortint
+try:
+ DataGlobal['ret'] = sorted([int(a.strip()) for a in list(_arg.split(','))])
+except ValueError:
+ exception("'sortint' only support integer")
+end
+
+pyvoid sortfloat
+try:
+ DataGlobal['ret'] = sorted([float(a.strip()) for a in list(_arg.split(','))])
+except ValueError:
+ exception("'sortfloat' only support integer or float")
+end
+
+pyvoid ord
+try:
+ total = sum([ord(a) for a in _arg])
+ DataGlobal['ret'] = total//len(_arg)
+except:
+ DataGlobal['ret'] = ''
+end
+
+pyvoid chr
+try:
+ DataGlobal['ret'] = chr(int(_arg))
+except (ValueError, OverflowError):
+ exception('"chr" only support integer that range between "0" to "'+str(maxunicode)+'"')
+end
+
+pyvoid powerset
+global powerset
+def powerset(seq):
+ if len(seq) <= 0:
+  yield []
+ else:
+  for item in powerset(seq[1:]):
+   yield {seq[0]} | set(item)
+   if set(item) != set():
+    yield set(item)
+   else:
+    yield {}
+DataGlobal['ret'] = tuple(powerset(list(set([_arg.strip() for _arg in _arg.split(',')]))))
+end
+
+pyvoid ranged
+try:
+ if len(_commasplit) == 0:
+  DataGlobal['ret'] = 0
+ elif len(_commasplit) == 1:
+  DataGlobal['ret'] = list(range(int(_arg)))
+ elif len(_commasplit) == 2:
+  DataGlobal['ret'] = list(range(int(_commasplit[0]), int(_arg.split(',', 1)[1])))
+ elif len(_commasplit) == 3:
+  DataGlobal['ret'] = list(range(int(_commasplit[0]), int(_commasplit[1]), int(_arg.split(',', 2)[2])))
+except (ValueError, OverflowError, MemoryError):
+ exception('"ranged" only support integer from "-'+str((maxint+1)//100)+'" to "'+str((maxint+1)//100)+'"')
+end
+
+pyvoid intersect
+try:
+ DataGlobal['ret'] = _parse_to_reading(_commasplit[0]) & _parse_to_reading(_commasplit[1])
+except IndexError:
+ exception('"intersect" need two argument, "unite" and "unite"')
+end
+
+pyvoid union
+try:
+ DataGlobal['ret'] = DataGlobal[_commasplit[0]] | DataGlobal[_commasplit[1]]
+except IndexError:
+ exception('"union" need two argument, "unite" and "unite"')
+except KeyError:
+ exception("Data is not exist either '"+_commasplit[0]+"' or '"+_commasplit[1]+"'")
+except IndexError:
+ exception('"union" need two argument, "data" and "set"')
+end
+
+pyvoid extract
+try:
+ DataGlobal['ret'] = eval("'"+_arg.replace("'", "\\'")+"'")
+except:
+ exception("Result can't be extracted \""+_arg+"\"")
+end
+
+pyvoid getallhelper
+try:
+ DataGlobal['ret'] = sorted(list(AllHelper))
+except:
+ pass
+end
+
+pyvoid getallcommand
+try:
+ if _arg.lower().strip() == '':
+  DataGlobal['ret'] = sorted([i for s in AllCommand.values() for i in s])
+ elif _arg.lower().strip() == 'builtin' or _arg.lower().strip() == 'built-in':
+  DataGlobal['ret'] = sorted(list(AllCommand['builtin/standard command (lexer.py)']))
+ elif _arg.lower().strip() == '$console':
+  DataGlobal['ret'] = sorted(list(AllCommand['$Console']))
+ else:
+  try:
+   DataGlobal['ret'] = sorted(list(AllCommand[_arg]))
+  except:
+   DataGlobal['ret'] = sorted(list(AllCommand[_arg+'.fcm']))
+except KeyError as ke:
+ exception('Module is not exist "'+_arg+'" or does not have any command in it')
+end
+
+pyvoid toseparatelist
+try:
+ DataGlobal['ret'] = ', '.join(_parse_to_reading(_arg))
+except:
+ pass
+end
+
+pyvoid putchar
+try:
+ print(_arg, end='', flush=True)
+ DataGlobal['ret'] = len(_arg)
+except:
+ pass
+end
+
+// void scope command
+void print 
+ putchar ${_arg}\n
+end
+
+void chindex
+ int base-index, ${_arg}
+end
+
+// new key of pydefining
+*new
+- toseparatelisted, toseparatelist
+- listed, tolist
+- variable, var
+- list_r, list_remove
+- list_a, append
+- list_append, append
+- set_p, powerset
+- set_u, union
+- set_i, intersect
+- sort_string, sortstr
+- sort_integer, sortint
+- sort_float, sortfloat
+- getvalue, get_value
+- getitem, get_value
+- get_item, get_value
+- length, len
+
+// description new real key
+*desc
+- toseparatelist, change `[1, 2, 3]` to `1, 2, 3`
+- tolist, change the given argument to list type with argument: toList <command>
+- toset, change the given argument to set type with argument: toSet <command>
+- len, get length of data
+- each, iterate over a given list and then return it but changed using command, argument: each <ITERATION_DATA>, <DATA>, <COMMAND>
+- ord, return ordinal character (in ASCII value as String)
+- chr, return character of ordinal (in ASCII value as Integer)
+- append, add a new Array element to a list object, with argument: append <DATA>, <VALUE>
+- list_remove, remove an Array element from a list object, with argument: list_remove <DATA>, <VALUE>
+- mean, get a average of given list
+- sortstr, sorting the given list in string format
+- sortint, sorting the given list in integer format
+- sortfloat, sorting the given list in float format
+- powerset, get all subset of given argument, example: powerset a // this return () and (a,)
+- var, set a variable with value of returned command, example: var sin30, sin 30 // return 0.5 and set sin30 data to 0.5 
+- chindex, make base-index data to _arg
+- index, return index of object with argument: index object, index to ret. base index is set to base-index data
+- return, return a value to ret data with argument: return <command>
+- extract, in Python, it's same as ret = eval(_arg), example: "\ta" -> "    a"
+- get_value, return a value in a dictionary 
+- ranged, return range() from given argument
+- union, unite two different set
+- intersect, intersect two different set
+- getallhelper, get all helper list from the current status
+- getallcommand, get all command from status or the given module
+- putchar, print a character without new line
+- print, print a character with a new line (same as putchar but with new line)
+
+// Add function as command, see "?setCommandAsFunction"
+setCommandAsFunction toList, toSet, len, chr, ord, mean, sortstr, sortint, sortfloat, powerset, extract, getallhelper, getallcommand
+
+// HERE IS TO AUTO-LOAD! another fscmd module for built-in module that always executed if started (at least it's really useful)
+load statement, my, setting, arithmetic, operator
