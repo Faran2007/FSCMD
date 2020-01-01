@@ -471,7 +471,7 @@ def _reading(rcmd):
   rcmd = ''
  elif isTypedNum:
   if '.' in rcmd or 'f' in rcmd:
-   DataGlobal['ret'] = float(rcmd.replace(' ', ''))
+   DataGlobal['ret'] = float(rcmd.replace(' ', '').strip('f'))
   else:
    try:
     DataGlobal['ret'] = int(rcmd.replace(' ', ''))
