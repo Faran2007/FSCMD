@@ -637,6 +637,10 @@ def lexer(_command, _arg, _splitarg, _commasplit):
   exception('"'+_command+'" is not a command, function, operator, data, literal or method')
  except ZeroDivisionError:
   exception('You can\'t divide by zero!')
+ except SyntaxError:
+  exception('"'+_command+'" is not a command, function, operator, data, literal or method')
+ except Exception as e:
+  exception('Python "'+str(e)+'"')
   
 """
  THIS IS A REAL BUILTIN FILE, CONTAINS: 
